@@ -4,6 +4,31 @@ import java.util.Scanner;
 import java.util.Random;
 
 class GuessNumberGame {
+
+    private static void clearLogFile() {
+        try (FileWriter writer = new FileWriter("log.txt", false)) {
+            writer.write("");
+        } catch (IOException e) {
+            System.out.println("Ошибка при очистке файла лога: " + e.getMessage());
+        }
+    }
+
+    private static void logAttempt(int attempt, int guess) {
+        try (FileWriter writer = new FileWriter("log.txt", true)) {
+            writer.write("Попытка " + attempt + ": введено число " + guess + "\n");
+        } catch (IOException e) {
+            System.out.println("Ошибка при записи в файл лога: " + e.getMessage());
+        }
+    }
+
+    private static void logSuccess(int attempts) {
+        try (FileWriter writer = new FileWriter("log.txt", true)) {
+            writer.write("Угадано за " + attempts + " попыток\n");
+        } catch (IOException e) {
+            System.out.println("Ошибка при записи результата в файл: " + e.getMessage());
+        }
+    }
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
@@ -45,27 +70,5 @@ class GuessNumberGame {
         scanner.close();
     }
 
-    private static void clearLogFile() {
-        try (FileWriter writer = new FileWriter("log.txt", false)) {
-            writer.write("");
-        } catch (IOException e) {
-            System.out.println("Ошибка при очистке файла лога: " + e.getMessage());
-        }
-    }
-
-    private static void logAttempt(int attempt, int guess) {
-        try (FileWriter writer = new FileWriter("log.txt", true)) {
-            writer.write("Попытка " + attempt + ": введено число " + guess + "\n");
-        } catch (IOException e) {
-            System.out.println("Ошибка при записи в файл лога: " + e.getMessage());
-        }
-    }
-
-    private static void logSuccess(int attempts) {
-        try (FileWriter writer = new FileWriter("log.txt", true)) {
-            writer.write("Угадано за " + attempts + " попыток\n");
-        } catch (IOException e) {
-            System.out.println("Ошибка при записи результата в файл: " + e.getMessage());
-        }
-    }
+    
 }
